@@ -2,13 +2,28 @@
 
 import { motion } from "framer-motion";
 import CountingNumbers from "@/components/shared/counting-numbers";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Account, Accounts, getAccounts } from '@/app/api/accounts/route'
-import { Suspense } from 'react';
 
 
 export default function Amount(accountList:Account[]) {
-  console.log(accountList)
+  // 合計金額
+  const [amount, setAmount] = useState(0);
+
+  useEffect(()=>{
+    let am = 0
+    console.log("start amount. ")
+    console.log(accountList)
+    if(accountList && accountList.length > 0){
+      for(const account of accountList) {
+          if(!account) {
+            continue;
+          }
+          am += account.amount
+      }
+    }
+    setAmount(am)
+	}, [])
 
   return (
     <div className="relative h-full w-full">
@@ -36,7 +51,7 @@ export default function Amount(accountList:Account[]) {
         />
       </motion.svg>
       <CountingNumbers
-        value={100}
+        value={amount}
         duration={2500}
         className="absolute inset-0 mx-auto flex items-center justify-center font-display text-5xl text-green-500"
       />

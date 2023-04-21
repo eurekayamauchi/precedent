@@ -1,15 +1,15 @@
-'use client'; 
-
 import { Account, Accounts, getAccounts } from '@/app/api/accounts/route'
-import { Suspense } from 'react';
 
 export default function Accounts(accountList:Account[]) {
-  console.log(accountList)
+  // 口座リスト
+  console.log("--------------------------------------")
+    console.log(accountList)
+    console.log("--------------------------------------")
+    
   return (
     <div
       className={`relative col-span-1 h-96 overflow-hidden rounded-xl border border-gray-200 bg-white shadow-md md:col-span-2`}
     >
-      <Suspense fallback={<img src='loading.gif'/>}>
       {accountList.length > 0 && (
       <table className="min-w-full">
         <thead className="bg-blue-450 border-b text-current" >
@@ -56,7 +56,6 @@ export default function Accounts(accountList:Account[]) {
       {accountList.length == 0 && (
         <p>口座がありません</p>
       )}
-      </Suspense>
     </div>
   );
 }
